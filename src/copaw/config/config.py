@@ -11,6 +11,7 @@ from .timezone import detect_system_timezone
 from ..constant import (
     HEARTBEAT_DEFAULT_EVERY,
     HEARTBEAT_DEFAULT_TARGET,
+    HEARTBEAT_DEFAULT_TIMEOUT_SECONDS,
     WORKING_DIR,
 )
 from ..providers.models import ModelSlotConfig
@@ -206,6 +207,11 @@ class HeartbeatConfig(BaseModel):
     enabled: bool = Field(default=False, description="Whether heartbeat is on")
     every: str = Field(default=HEARTBEAT_DEFAULT_EVERY)
     target: str = Field(default=HEARTBEAT_DEFAULT_TARGET)
+    timeout_seconds: int = Field(
+        default=HEARTBEAT_DEFAULT_TIMEOUT_SECONDS,
+        ge=1,
+        alias="timeoutSeconds",
+    )
     active_hours: Optional[ActiveHoursConfig] = Field(
         default=None,
         alias="activeHours",
